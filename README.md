@@ -1,1 +1,1 @@
-# ShamikoBot
+# ShamikoBot (Yūko)
