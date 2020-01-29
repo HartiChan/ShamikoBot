@@ -12,6 +12,7 @@
 #   "Y8888P"  888  888 "Y888888 888  888  888 888 888  888  "Y88P"          "Y8888P"   "Y88P"   "Y88888  "Y8888  
 #   
 
+from Core.Shamiko import telegram_chatbot
 from Utils import Logger as Log
 import operator
 import re
@@ -22,13 +23,14 @@ import psutil
 import json
 
 #from Core.Dialoger import trigger
-from Core.Shamiko import telegram_chatbot
+
 
 bot = telegram_chatbot("config.cfg")
 
 bot.sendbootmsg("Booted!")
 Log.i("Starting Shamiko-Project, version 0.0.2")
 
+update_id = None
 #Move to Dialoger
 
 #trigger.make_reply(msg)
@@ -38,16 +40,19 @@ def make_reply(msg):
     
     if msg is not None:
         Log.i(msg)
-        
+
         if msg == "ping":
             Log.a("pong")
             reply = "pong"
-        
+            print(reply)
+            pass
         if msg == "info":
             Log.a("Shamiko-Project, version 0.0.2")
             reply = "Shamiko-Project, version 0.0.2"
+            pass
+    return reply
 
-update_id = None
+
 
 
 while True:
@@ -79,6 +84,8 @@ while True:
 
             if from_ == chat_:
                 reply = make_reply(message)
+                print(reply)
+                Log.i(reply)
                 bot.send_message(reply, from_)
 
             if from_ != chat_:
