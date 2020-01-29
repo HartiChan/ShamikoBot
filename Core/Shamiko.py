@@ -16,7 +16,6 @@
 import requests
 import json
 import configparser as cfg
-import server
 
 class telegram_chatbot():
     def __init__(self, config):
