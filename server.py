@@ -14,6 +14,8 @@
 
 from Core.Shamiko import telegram_chatbot
 from Utils import Logger as Log
+from Core.Dialoger import yuko_trigger
+
 import operator
 import re
 import time
@@ -22,38 +24,14 @@ import sys
 import psutil
 import json
 
-#from Core.Dialoger import trigger
-
 
 bot = telegram_chatbot("config.cfg")
+trigger = yuko_trigger()
 
 bot.sendbootmsg("Booted!")
 Log.i("Starting Shamiko-Project, version 0.0.2")
 
 update_id = None
-#Move to Dialoger
-
-#trigger.make_reply(msg)
-
-def make_reply(msg):
-    reply = None
-    
-    if msg is not None:
-        Log.i(msg)
-
-        if msg == "ping":
-            Log.a("pong")
-            reply = "pong"
-            print(reply)
-            pass
-        if msg == "info":
-            Log.a("Shamiko-Project, version 0.0.2")
-            reply = "Shamiko-Project, version 0.0.2"
-            pass
-    return reply
-
-
-
 
 while True:
 
@@ -70,7 +48,6 @@ while True:
             try:
  
                 message = str(item["message"]["text"])
-                print(message)
  
             except:
  
@@ -83,11 +60,9 @@ while True:
             Log.i(chat_)
 
             if from_ == chat_:
-                reply = make_reply(message)
-                print(reply)
-                Log.i(reply)
+                reply = trigger.make_reply(message)
                 bot.send_message(reply, from_)
 
             if from_ != chat_:
-                reply = make_reply(message)
+                reply = trigger.make_reply(message)
                 bot.send_message(reply, chat_)
