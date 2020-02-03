@@ -14,6 +14,7 @@
 
 from Core.Shamiko import telegram_chatbot
 from Utils import Logger as Log
+
 import operator
 import re
 import time
@@ -22,5 +23,22 @@ import sys
 import psutil
 import json
 
-class trigger():
+class yuko_trigger:
+
+    def make_reply(self, msg):
+        reply = None
+    
+        if msg is not None:
+            Log.i(msg)
+
+            if msg == "ping":
+                Log.a("pong")
+                reply = "pong"
+
+            if msg == "info":
+                Log.a("Shamiko-Project, version 0.0.2")
+                reply = "Shamiko-Project, version 0.0.2"
+
+        return reply
+
     
