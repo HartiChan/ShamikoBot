@@ -29,7 +29,7 @@ bot = telegram_chatbot("config.cfg")
 trigger = yuko_trigger()
 
 bot.sendbootmsg("Booted!")
-Log.i("Starting Shamiko-Project, version 0.0.2")
+Log.i("Starting Shamiko-Project, version 0.0.3.1")
 
 update_id = None
 
