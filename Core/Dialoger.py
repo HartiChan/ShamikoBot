@@ -36,8 +36,8 @@ class yuko_trigger:
                 reply = "pong"
 
             if msg == "info":
-                Log.a("Shamiko-Project, version 0.0.2")
-                reply = "Shamiko-Project, version 0.0.2"
+                Log.a("Shamiko-Project, version 0.0.3.1")
+                reply = "Shamiko-Project, version 0.0.3.1"
 
         return reply
 
