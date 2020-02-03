@@ -25,7 +25,7 @@ import json
 
 class yuko_trigger:
 
-    def make_reply(msg):
+    def make_reply(self, msg):
         reply = None
     
         if msg is not None:
