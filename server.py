@@ -55,12 +55,27 @@ while True:
  
             from_ = item["message"]["from"]["id"]
             chat_ = item["message"]["chat"]["id"]
+            chat_name_ = item["message"]["chat"]["title"]
             username_ = item["message"]["from"]["username"]
             first_name_ = item["message"]["from"]["first_name"]
+            new_chat_member_ = item["message"]["new_chat_participant"]["username"]
+            gone_chat_member_ = item["message"]["left_chat_member"]["first_name"]
                 
 
             Log.i(from_)
             Log.i(chat_)
+
+            if new_chat_member_ is not None:
+                Log.a("welcome")
+                reply = "Welcome @" + new_chat_member_ + " to " + chat_name_
+                bot.send_message(reply, chat_)
+
+            if gone_chat_member_ is not None:
+                Log.a("Left")
+                reply = "Goodby" + gone_chat_member_ + " ;__;"
+                bot.send_message(reply, chat_)
+
+            # add query for tag replys
 
             if from_ == chat_:
                 reply = trigger.make_reply(message)
