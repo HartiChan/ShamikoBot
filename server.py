@@ -55,14 +55,49 @@ while True:
  
             from_ = item["message"]["from"]["id"]
             chat_ = item["message"]["chat"]["id"]
+            chat_name_ = item["message"]["chat"]["title"]
+            username_ = item["message"]["from"]["username"]
+            first_name_ = item["message"]["from"]["first_name"]
+            new_chat_member_ = item["message"]["new_chat_participant"]
+            gone_chat_member_ = item["message"]["left_chat_member"]
+                
 
             Log.i(from_)
             Log.i(chat_)
 
-            if from_ == chat_:
-                reply = trigger.make_reply(message)
-                bot.send_message(reply, from_)
-
-            if from_ != chat_:
-                reply = trigger.make_reply(message)
+            if new_chat_member_ is not None:
+                
+                new_chat_member_name_ = item["message"]["new_chat_participant"]["username"]
+                Log.a("welcome")
+                reply = "Welcome @" + new_chat_member_name_ + " to " + chat_name_
                 bot.send_message(reply, chat_)
+
+            if gone_chat_member_ is not None:
+
+                gone_chat_member_name_ = item["message"]["left_chat_member"]["first_name"]
+                Log.a("Left")
+                reply = "Goodby" + gone_chat_member_name_ + " ;__;"
+                bot.send_message(reply, chat_)
+
+            if new_chat_member_ and gone_chat_member_ is None:
+
+                reply_to_message_ = item["message"]["reply_to_message"]
+
+                if reply_to_message_ is not None:
+
+                    reply_to_message_name_ = item["message"]["reply_to_message"]["from"]["first_name"]
+
+                
+                
+                if reply_to_message_ is None:
+
+                    if from_ == chat_:
+                        reply = trigger.make_reply(message)
+                        reply = trigger.make_tag(message, username_)
+                        reply = trigger.make_reply_name(message, first_name_)
+                        bot.send_message(reply, from_)
+
+                    if from_ != chat_:
+                        reply = trigger.make_reply(message)
+                        reply = trigger.make_tag(message, username_)
+                        bot.send_message(reply, chat_)

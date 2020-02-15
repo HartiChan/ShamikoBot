@@ -24,7 +24,7 @@ class telegram_chatbot():
         self.masterID = self.ReadMasterID(config)
 
     def get_updates(self, offset=None):
-        url = self.base + "getUpdates?timeout=100"
+        url = self.base + "getUpdates?timeout=10"
         if offset:
             url = url + "&offset={}".format(offset + 1)
         r = requests.get(url)

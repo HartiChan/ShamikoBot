@@ -39,6 +39,32 @@ class yuko_trigger:
                 Log.a("Shamiko-Project, version 0.0.3.1")
                 reply = "Shamiko-Project, version 0.0.3.1"
 
+
+
         return reply
 
-    
+    def make_tag(self, msg, username):
+
+        if msg is not None:
+
+            if msg == "hello" + " there":
+                Log.a("Hello there")
+                reply = "Hello @" + username + ". I am Yuko ( ^ ω ^)"
+
+            if msg == "Hi" or "hi" or "Hello" or "hello":
+                Log.a("Hello")
+                reply = "Hi @" + username
+        
+        return reply
+        
+    def make_reply_name(self, msg, first_name):
+
+        if msg is not None:
+
+            if msg == "test":
+                Log.a("test")
+                reply = "test " + first_name
+
+        return reply
+
+
