@@ -66,7 +66,7 @@ while True:
             Log.i(chat_)
 
             if new_chat_member_ is not None:
-                
+
                 new_chat_member_name_ = item["message"]["new_chat_participant"]["username"]
                 Log.a("welcome")
                 reply = "Welcome @" + new_chat_member_name_ + " to " + chat_name_
@@ -86,9 +86,10 @@ while True:
                 if reply_to_message_ is not None:
 
                     reply_to_message_name_ = item["message"]["reply_to_message"]["from"]["first_name"]
+                    reply = trigger.reply_to_usermessage(message, first_name_, reply_to_message_name_)
+                    bot.send_message(reply, chat_)
 
-                
-                
+
                 if reply_to_message_ is None:
 
                     if from_ == chat_:
