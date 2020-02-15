@@ -55,14 +55,20 @@ while True:
  
             from_ = item["message"]["from"]["id"]
             chat_ = item["message"]["chat"]["id"]
+            username_ = item["message"]["from"]["username"]
+            first_name_ = item["message"]["from"]["first_name"]
+                
 
             Log.i(from_)
             Log.i(chat_)
 
             if from_ == chat_:
                 reply = trigger.make_reply(message)
+                reply = trigger.make_tag(message, username_)
+                reply = trigger.make_reply_name(message, first_name_)
                 bot.send_message(reply, from_)
 
             if from_ != chat_:
                 reply = trigger.make_reply(message)
+                reply = trigger.make_tag(message, username_)
                 bot.send_message(reply, chat_)
