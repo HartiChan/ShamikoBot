@@ -53,7 +53,7 @@ class yuko_trigger:
 
             if msg == "Hi" or "hi" or "Hello" or "hello":
                 Log.a("Hello")
-                reply = "Hi @" + username
+                reply = "Hi @" + username + " ^^"
         
         return reply
         
@@ -66,5 +66,17 @@ class yuko_trigger:
                 reply = "test " + first_name
 
         return reply
+
+    def reply_to_usermessage(self, msg, sendname, takename):
+
+        if msg is not None:
+
+            if msg == "yuko pat her":
+                Log.a("pat her")
+                reply = "Hai! *smiles and jumps on " + takename + "'s arms*"
+        
+        return reply
+
+
 
 
