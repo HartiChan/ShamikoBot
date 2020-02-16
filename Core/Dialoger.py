@@ -25,7 +25,7 @@ import json
 
 class yuko_trigger:
 
-    def make_reply(self, msg):
+    def make_reply(self, msg, username, first_name):
         reply = None
     
         if msg is not None:
@@ -36,16 +36,12 @@ class yuko_trigger:
                 reply = "pong"
 
             if msg == "info":
-                Log.a("Shamiko-Project, version 0.0.3.1")
+                Log.a("info")
                 reply = "Shamiko-Project, version 0.0.3.1"
-
-
-
-        return reply
-
-    def make_tag(self, msg, username):
-
-        if msg is not None:
+            
+            if "give" and "cookie" in msg:
+                Log.a("cookie")
+                reply = "Of course!"
 
             if msg == "hello" + " there":
                 Log.a("Hello there")
@@ -54,18 +50,14 @@ class yuko_trigger:
             if msg == "Hi" or "hi" or "Hello" or "hello":
                 Log.a("Hello")
                 reply = "Hi @" + username + " ^^"
-        
-        return reply
-        
-    def make_reply_name(self, msg, first_name):
-
-        if msg is not None:
 
             if msg == "test":
                 Log.a("test")
                 reply = "test " + first_name
 
         return reply
+
+class yuko_reply_usermessage:
 
     def reply_to_usermessage(self, msg, sendname, takename):
 
