@@ -81,7 +81,7 @@ while True:
 
                 new_chat_member_name_ = item["message"]["new_chat_participant"]["username"]
                 Log.a("welcome")
-                reply = "Welcome @" + new_chat_member_name_ + " to " + chat_name_
+                reply = "Welcome @" + new_chat_member_name_ + " to " + chat_name_ + " ^^"
                 bot.send_message(reply, chat_)
 
             if gone_chat_member_ is not None:
