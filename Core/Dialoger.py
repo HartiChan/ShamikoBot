@@ -29,33 +29,33 @@ class yuko_trigger:
         reply = None
     
         if msg is not None:
-            Log.i(msg)
 
             if msg == "ping":
                 Log.a("pong")
                 reply = "pong"
+                return reply
 
             if msg == "info":
                 Log.a("info")
-                reply = "Shamiko-Project, version 0.0.3.1"
+                reply = "Shamiko-Project, version 0.0.5.1"
+                return reply
             
             if "give" and "cookie" in msg:
                 Log.a("cookie")
                 reply = "Of course!"
+                return reply
 
-            if msg == "hello" + " there":
+            if msg == "hello there":
                 Log.a("Hello there")
                 reply = "Hello @" + username + ". I am Yuko ( ^ ω ^)"
+                return reply
 
-            if msg == "Hi" or "hi" or "Hello" or "hello":
-                Log.a("Hello")
-                reply = "Hi @" + username + " ^^"
+            if msg == "hello":
+                Log.a("hello")
+                reply = "Hi " + first_name + " ^^"
+                return reply
 
-            if msg == "test":
-                Log.a("test")
-                reply = "test " + first_name
-
-        return reply
+        
 
 class yuko_reply_usermessage:
 
@@ -63,11 +63,11 @@ class yuko_reply_usermessage:
 
         if msg is not None:
 
-            if msg == "yuko pat her":
+            if "yuko pat her" in msg:
                 Log.a("pat her")
                 reply = "Hai! *smiles and jumps on " + takename + "'s arms*"
-        
-        return reply
+                return reply
+
 
 
 
