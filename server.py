@@ -30,7 +30,7 @@ trigger = yuko_trigger()
 repum = yuko_reply_usermessage()
 
 bot.sendbootmsg("Booted!")
-Log.i("Starting Shamiko-Project, version 0.0.3.1")
+Log.i("Starting Shamiko-Project, version 0.0.5.2")
 
 update_id = None
 
@@ -57,18 +57,22 @@ while True:
             from_ = item["message"]["from"]["id"]
             chat_ = item["message"]["chat"]["id"]
             first_name_ = item["message"]["from"]["first_name"]
+            
             try:
                 username_ = item["message"]["from"]["username"]
             except:
                 username_ = None
+
             try:
                 chat_name_ = item["message"]["chat"]["title"]
             except:
                 chat_name_ = None
+
             try:
                 new_chat_member_ = item["message"]["new_chat_participant"]
             except:
                 new_chat_member_ = None
+
             try:
                 gone_chat_member_ = item["message"]["left_chat_member"]
             except:
@@ -91,26 +95,25 @@ while True:
                 reply = "Goodby " + gone_chat_member_name_ + " ;__;"
                 bot.send_message(reply, chat_)
 
-            if new_chat_member_ and gone_chat_member_ is None:
 
-                try:
-                    reply_to_message_ = item["message"]["reply_to_message"]
-                except:
-                    reply_to_message_ = None
+            try:
+                reply_to_message_ = item["message"]["reply_to_message"]
+            except:
+                reply_to_message_ = None
 
-                if reply_to_message_ is not None:
+            if reply_to_message_ is not None:
 
-                    reply_to_message_name_ = item["message"]["reply_to_message"]["from"]["first_name"]
-                    reply = repum.reply_to_usermessage(message, first_name_, reply_to_message_name_)
+                reply_to_message_name_ = item["message"]["reply_to_message"]["from"]["first_name"]
+                reply = repum.reply_to_usermessage(message, first_name_, reply_to_message_name_)
+                bot.send_message(reply, chat_)
+
+
+            if reply_to_message_ is None:
+
+                if from_ == chat_:
+                    reply = trigger.make_reply(message, username_, first_name_)
+                    bot.send_message(reply, from_)
+
+                if from_ != chat_:
+                    reply = trigger.make_reply(message, username_, first_name_)
                     bot.send_message(reply, chat_)
-
-
-                if reply_to_message_ is None:
-
-                    if from_ == chat_:
-                        reply = trigger.make_reply(message, username_, first_name_)
-                        bot.send_message(reply, from_)
-
-                    if from_ != chat_:
-                        reply = trigger.make_reply(message, username_, first_name_)
-                        bot.send_message(reply, chat_)
