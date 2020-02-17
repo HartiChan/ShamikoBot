@@ -25,57 +25,49 @@ import json
 
 class yuko_trigger:
 
-    def make_reply(self, msg):
+    def make_reply(self, msg, username, first_name):
         reply = None
     
         if msg is not None:
-            Log.i(msg)
 
             if msg == "ping":
                 Log.a("pong")
                 reply = "pong"
+                return reply
 
             if msg == "info":
-                Log.a("Shamiko-Project, version 0.0.3.1")
-                reply = "Shamiko-Project, version 0.0.3.1"
+                Log.a("info")
+                reply = "Shamiko-Project, version 0.0.5.1"
+                return reply
+            
+            if "give" and "cookie" in msg:
+                Log.a("cookie")
+                reply = "Of course!"
+                return reply
 
-
-
-        return reply
-
-    def make_tag(self, msg, username):
-
-        if msg is not None:
-
-            if msg == "hello" + " there":
+            if msg == "hello there":
                 Log.a("Hello there")
                 reply = "Hello @" + username + ". I am Yuko ( ^ ω ^)"
+                return reply
 
-            if msg == "Hi" or "hi" or "Hello" or "hello":
-                Log.a("Hello")
-                reply = "Hi @" + username + " ^^"
+            if msg == "hello":
+                Log.a("hello")
+                reply = "Hi " + first_name + " ^^"
+                return reply
+
         
-        return reply
-        
-    def make_reply_name(self, msg, first_name):
 
-        if msg is not None:
-
-            if msg == "test":
-                Log.a("test")
-                reply = "test " + first_name
-
-        return reply
+class yuko_reply_usermessage:
 
     def reply_to_usermessage(self, msg, sendname, takename):
 
         if msg is not None:
 
-            if msg == "yuko pat her":
+            if "yuko pat her" in msg:
                 Log.a("pat her")
                 reply = "Hai! *smiles and jumps on " + takename + "'s arms*"
-        
-        return reply
+                return reply
+
 
 
 

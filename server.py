@@ -14,7 +14,7 @@
 
 from Core.Shamiko import telegram_chatbot
 from Utils import Logger as Log
-from Core.Dialoger import yuko_trigger
+from Core.Dialoger import yuko_trigger, yuko_reply_usermessage
 
 import operator
 import re
@@ -27,9 +27,10 @@ import json
 
 bot = telegram_chatbot("config.cfg")
 trigger = yuko_trigger()
+repum = yuko_reply_usermessage()
 
 bot.sendbootmsg("Booted!")
-Log.i("Starting Shamiko-Project, version 0.0.3.1")
+Log.i("Starting Shamiko-Project, version 0.0.5.2")
 
 update_id = None
 
@@ -55,12 +56,27 @@ while True:
  
             from_ = item["message"]["from"]["id"]
             chat_ = item["message"]["chat"]["id"]
-            chat_name_ = item["message"]["chat"]["title"]
-            username_ = item["message"]["from"]["username"]
             first_name_ = item["message"]["from"]["first_name"]
-            new_chat_member_ = item["message"]["new_chat_participant"]
-            gone_chat_member_ = item["message"]["left_chat_member"]
-                
+            
+            try:
+                username_ = item["message"]["from"]["username"]
+            except:
+                username_ = None
+
+            try:
+                chat_name_ = item["message"]["chat"]["title"]
+            except:
+                chat_name_ = None
+
+            try:
+                new_chat_member_ = item["message"]["new_chat_participant"]
+            except:
+                new_chat_member_ = None
+
+            try:
+                gone_chat_member_ = item["message"]["left_chat_member"]
+            except:
+                gone_chat_member_ = None
 
             Log.i(from_)
             Log.i(chat_)
@@ -69,36 +85,35 @@ while True:
 
                 new_chat_member_name_ = item["message"]["new_chat_participant"]["username"]
                 Log.a("welcome")
-                reply = "Welcome @" + new_chat_member_name_ + " to " + chat_name_
+                reply = "Welcome @" + new_chat_member_name_ + " to " + chat_name_ + " ^^"
                 bot.send_message(reply, chat_)
 
             if gone_chat_member_ is not None:
 
                 gone_chat_member_name_ = item["message"]["left_chat_member"]["first_name"]
                 Log.a("Left")
-                reply = "Goodby" + gone_chat_member_name_ + " ;__;"
+                reply = "Goodby " + gone_chat_member_name_ + " ;__;"
                 bot.send_message(reply, chat_)
 
-            if new_chat_member_ and gone_chat_member_ is None:
 
+            try:
                 reply_to_message_ = item["message"]["reply_to_message"]
+            except:
+                reply_to_message_ = None
 
-                if reply_to_message_ is not None:
+            if reply_to_message_ is not None:
 
-                    reply_to_message_name_ = item["message"]["reply_to_message"]["from"]["first_name"]
-                    reply = trigger.reply_to_usermessage(message, first_name_, reply_to_message_name_)
+                reply_to_message_name_ = item["message"]["reply_to_message"]["from"]["first_name"]
+                reply = repum.reply_to_usermessage(message, first_name_, reply_to_message_name_)
+                bot.send_message(reply, chat_)
+
+
+            if reply_to_message_ is None:
+
+                if from_ == chat_:
+                    reply = trigger.make_reply(message, username_, first_name_)
+                    bot.send_message(reply, from_)
+
+                if from_ != chat_:
+                    reply = trigger.make_reply(message, username_, first_name_)
                     bot.send_message(reply, chat_)
-
-
-                if reply_to_message_ is None:
-
-                    if from_ == chat_:
-                        reply = trigger.make_reply(message)
-                        reply = trigger.make_tag(message, username_)
-                        reply = trigger.make_reply_name(message, first_name_)
-                        bot.send_message(reply, from_)
-
-                    if from_ != chat_:
-                        reply = trigger.make_reply(message)
-                        reply = trigger.make_tag(message, username_)
-                        bot.send_message(reply, chat_)
