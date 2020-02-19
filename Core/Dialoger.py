@@ -12,8 +12,9 @@
 #   "Y8888P"  888  888 "Y888888 888  888  888 888 888  888  "Y88P"          "Y8888P"   "Y88P"   "Y88888  "Y8888  
 #   
 
-from Core.Shamiko import telegram_chatbot
+from Core.Base import telegram_chatbot
 from Utils import Logger as Log
+
 
 import operator
 import re
@@ -55,6 +56,11 @@ class yuko_trigger:
                 reply = "Hi " + first_name + " ^^"
                 return reply
 
+            if "yuko show your boobs" in msg:
+                Log.a("show boobs")
+                reply = "I don't want to, pervert! ><"
+                return reply
+
         
 
 class yuko_reply_usermessage:
@@ -67,6 +73,13 @@ class yuko_reply_usermessage:
                 Log.a("pat her")
                 reply = "Hai! *smiles and jumps on " + takename + "'s arms*"
                 return reply
+
+            if "yuko suck her" in msg:
+                Log.a("suck her")
+                reply = "*bites " + sendname + "*"
+                return reply
+
+#class yuko_admin_trigger:
 
 
 
